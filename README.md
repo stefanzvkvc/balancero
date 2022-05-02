@@ -1,21 +1,56 @@
 # Balancero
 
-**TODO: Add description**
+Internal load balancer.
+
+It is designed to help developers keep track of the number of persistent connections towards external services.
+Current version only supports least-connection strategy.
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `balancero` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:balancero, "~> 0.1.0"}
+    {:balancero, github: "stefanzvkvc/balancero", runtime: false}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/balancero](https://hexdocs.pm/balancero).
+In config file add server list that needs to be monitored.
 
+```elixir
+config :balancero,
+  servers: [
+    %{
+      host: "127.0.0.1",
+      port: 1234,
+      # for extra options when connecting visit: https://www.erlang.org/doc/man/gen_tcp.html#type-option_name
+      opts: []
+    },
+    ...
+  ]
+```
+
+## Example
+
+The example assumes you have external cluster running.
+
+To get available host you would like to get connected to, run:
+
+```elixir
+Balancero.get()
+{:ok, "127.0.0.1"}
+```
+
+Once connected, you can track this connection by running:
+
+```elixir
+Balancero.track("127.0.0.1")
+{:ok, "1WpAofWYIAA="}
+```
+
+On disconnect you can untrack the connection by runnung:
+
+```elixir
+Balancero.untrack()
+:ok
+```
