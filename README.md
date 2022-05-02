@@ -10,7 +10,7 @@ Current version only supports least-connection strategy.
 ```elixir
 def deps do
   [
-    {:balancero, github: "stefanzvkvc/balancero", runtime: false}
+    {:balancero, github: "stefanzvkvc/balancero"}
   ]
 end
 ```
