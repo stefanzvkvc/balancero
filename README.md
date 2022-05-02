@@ -48,7 +48,7 @@ Balancero.track("127.0.0.1")
 {:ok, "1WpAofWYIAA="}
 ```
 
-On disconnect you can untrack the connection by runnung:
+On disconnect you can untrack the connection by running:
 
 ```elixir
 Balancero.untrack()
